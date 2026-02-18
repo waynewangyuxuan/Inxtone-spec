@@ -1,0 +1,254 @@
+# Key Interfaces
+
+> UI mockups rendered in browser at localhost:3456
+
+**Parent**: [Product/Meta.md](Meta.md)
+**Lines**: ~290 | **Updated**: 2026-02-05
+
+*Note: This file contains ASCII diagrams (atomic blocks) that exceed normal line limits.*
+
+---
+
+## Web GUI Route Structure
+
+```
+/                           Dashboard
+/bible/characters           人物列表
+/bible/characters/:id       人物详情
+/bible/characters/:id/arc   人物弧光
+/bible/characters/map       关系图 ★
+/bible/world/rules          世界规则
+/bible/world/locations      地点
+/bible/world/factions       势力
+/bible/world/timeline       时间线 ★
+/bible/plot/outline         大纲
+/bible/plot/foreshadowing   伏笔
+/bible/plot/hooks           钩子
+/bible/plot/pacing          节奏 ★
+/write                      章节列表
+/write/:chapter             写作编辑器
+/write/:chapter/history     版本历史
+/export                     导出
+/settings                   设置
+```
+
+★ = 可视化增强功能 (Canvas/D3.js)
+
+---
+
+## 6.1 Dashboard (首页)
+
+**Purpose:** Entry point, status at a glance, quick actions
+
+**Components:**
+- Current project card (cover, title, word count, progress)
+- Today's writing goal + streak
+- Quick resume button → last chapter
+- Recent AI conversations
+- Notifications (consistency alerts, unresolved foreshadowing)
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│  INXTONE                               [New Project] [?]    │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  ┌──────────────────────────────────────────────────────┐  │
+│  │  📖 [Cover]  我的网文                                  │  │
+│  │              ─────────────────                        │  │
+│  │              Chapter 127 / Arc 3                      │  │
+│  │              234,892 words                            │  │
+│  │                                                       │  │
+│  │              [▓▓▓▓▓▓▓▓░░] 73% of Arc 3               │  │
+│  │                                                       │  │
+│  │              [Continue Writing →]                     │  │
+│  └──────────────────────────────────────────────────────┘  │
+│                                                             │
+│  Today's Goal                 Story Health                  │
+│  ┌─────────────────────┐     ┌─────────────────────────┐   │
+│  │ 1,247 / 3,000 words │     │ ⚠ 2 unresolved threads  │   │
+│  │ 🔥 12 day streak    │     │ ✓ Character consistency │   │
+│  └─────────────────────┘     │ ✓ World rules OK        │   │
+│                              └─────────────────────────┘   │
+└─────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 6.2 Story Bible (故事圣经)
+
+**Purpose:** Central hub for all story knowledge
+
+**Tabs:** Characters (人物), World (世界观), Plot (剧情), Notes (笔记)
+
+**Characters View:**
+```
+┌─────────────────────────────────────────────────────────────┐
+│  STORY BIBLE > Characters                    [+ New]        │
+├──────────────┬──────────────────────────────────────────────┤
+│              │                                              │
+│  Main (4)    │  林逸 Lin Yi                                  │
+│  ├ 林逸       │  ────────────────────────────────────────    │
+│  ├ 苏瑶       │                                              │
+│  ├ 陈浩       │  Role: Protagonist                           │
+│  └ 赵薇       │  First Appearance: Chapter 1                 │
+│              │                                              │
+│  Supporting  │  Motivation Layers                           │
+│  (12)        │  ┌──────────────────────────────────────┐    │
+│              │  │ Surface: 想要变强                      │    │
+│  Mentioned   │  │ Hidden:  证明自己不是废物               │    │
+│  (8)         │  │ Core:    害怕被抛弃                    │    │
+│              │  └──────────────────────────────────────┘    │
+│              │                                              │
+│              │  Relationships              [View Map]       │
+│              │  ├ 苏瑶 — 恋人 (从冷漠到信任)                  │
+│              │  └ 陈浩 — 宿敌 (嫉妒与对抗)                   │
+└──────────────┴──────────────────────────────────────────────┘
+```
+
+---
+
+## 6.3 Writing Workspace (写作空间)
+
+**Purpose:** Primary content creation interface
+
+**Layout:** Three-panel (collapsible)
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│  Chapter 127: 对决                                    [Save] [Check] [Export]│
+├───────────────┬─────────────────────────────────────┬───────────────────────┤
+│ CHAPTERS      │                                     │ AI ASSISTANT          │
+│               │                                     │                       │
+│ Arc 3         │  林逸站在擂台中央，目光如刀。          │ Context: Ch.127       │
+│ ├ Ch.120      │                                     │ Characters: 林逸,陈浩   │
+│ ├ Ch.121      │  "陈浩，"他缓缓开口，"三年前你         │ Location: 宗门擂台      │
+│ ├ Ch.122      │  说我是废物。"                        │                       │
+│ ├ Ch.123      │                                     │ ─────────────────────  │
+│ ├ Ch.124      │  台下一片寂静。                       │                       │
+│ ├ Ch.125      │                                     │ [Continue Scene]      │
+│ ├ Ch.126      │  |                                  │ [Generate Dialogue]   │
+│ ├ Ch.127 ←    │                                     │ [Describe Setting]    │
+│ └ Ch.128      │                                     │ [Brainstorm Options]  │
+│   (outline)   │                                     │                       │
+│ ───────────── │                                     │ Recent:               │
+│ STORY BIBLE   │                                     │ "Continue the         │
+│ ├ 林逸         │                                     │  confrontation..."    │
+│ └ 陈浩         │                                     │                       │
+├───────────────┴─────────────────────────────────────┴───────────────────────┤
+│  Words: 2,847  │  Goal: ▓▓▓▓▓▓░░░░ 2847/3000  │  Last saved: 2 min ago    │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 6.4 Plot Outliner (剧情大纲)
+
+**Purpose:** Hierarchical story structure management
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│  PLOT OUTLINER                                    [View: Outline] [Timeline]│
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│  ▼ ARC 1: 废物觉醒 (Ch.1-45) ✓ Complete                                      │
+│    ├ ▼ Setup: 被嘲笑的天才 (Ch.1-5)                                          │
+│    │   ├ Scene: 宗门大比惨败                                                 │
+│    │   ├ Scene: 陈浩羞辱                           ← 伏笔: 三年之约           │
+│    │   └ Scene: 老爷子出现                                                   │
+│    ├ ▷ Training: 秘境修炼 (Ch.6-20)                                          │
+│    └ ▷ Climax: 初战告捷 (Ch.36-45)                                           │
+│                                                                             │
+│  ▼ ARC 3: 天才对决 (Ch.101-150) ◐ 73% In Progress                            │
+│    ├ ✓ 陈浩归来 (Ch.101-110)                                                 │
+│    ├ ◐ 三年之约 (Ch.111-130)                      ← 伏笔回收: 三年之约        │
+│    └ ○ 真相揭露 (Ch.131-150)                                                 │
+│                                                                             │
+│  FORESHADOWING TRACKER                                     [View All]       │
+│  ┌────────────────────────────────────────────────────────────────────┐    │
+│  │ ⚠ 老爷子的真实身份 — Planted: Ch.3 — Payoff: Ch.200 (planned)       │    │
+│  │ ✓ 三年之约 — Planted: Ch.2 — Resolved: Ch.127-129                   │    │
+│  └────────────────────────────────────────────────────────────────────┘    │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 6.5 AI Prompt Panel (AI对话面板)
+
+**Purpose:** Natural language interaction with context-aware AI
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│  AI ASSISTANT                              [Context: Ch.127] │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  ┌─────────────────────────────────────────────────────┐   │
+│  │ 📎 Context Attached:                                 │   │
+│  │    • 林逸 (character profile)                        │   │
+│  │    • 陈浩 (character profile)                        │   │
+│  │    • Ch.126 summary                                  │   │
+│  │    • Scene outline: 对决开始                          │   │
+│  └─────────────────────────────────────────────────────┘   │
+│                                                             │
+│  ┌───────────────────────────────────────────────────────┐ │
+│  │ You: 帮我写陈浩看到林逸实力后的反应                        │ │
+│  └───────────────────────────────────────────────────────┘ │
+│                                                             │
+│  ┌───────────────────────────────────────────────────────┐ │
+│  │ AI: 这里有三个方向可以选择：                            │ │
+│  │                                                        │ │
+│  │ **Option A - 内心独白**                                │ │
+│  │ 陈浩瞳孔骤缩。不可能...三年前那个废物...                    │ │
+│  │                                                        │ │
+│  │ **Option B - 外在反应**                                │ │
+│  │ "你..."陈浩退后一步，手中的剑微微颤抖...                   │ │
+│  │                                                        │ │
+│  │            [Use A] [Use B] [Use C] [Regenerate]        │ │
+│  └───────────────────────────────────────────────────────┘ │
+│                                                             │
+│  Quick Actions:                                             │
+│  [Continue Scene] [Dialogue] [Describe] [Check Consistency] │
+└─────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 6.6 Consistency Checker (一致性检查)
+
+**Purpose:** Automated quality assurance
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│  CONSISTENCY CHECK — Chapter 127                            │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  ✓ Passed: 12 checks                                        │
+│  ⚠ Warnings: 2 items                                        │
+│  ✗ Issues: 1 item                                           │
+│                                                             │
+│  ✗ CHARACTER CONTRADICTION                                  │
+│  ┌─────────────────────────────────────────────────────┐   │
+│  │ Line 47: "陈浩笑了笑，大度地说道..."                    │   │
+│  │                                                      │   │
+│  │ Issue: 陈浩's personality is defined as "心胸狭窄".   │   │
+│  │ This dialogue seems out of character.                │   │
+│  │                                                      │   │
+│  │ [Go to Line] [Mark Intentional] [Edit Character]     │   │
+│  └─────────────────────────────────────────────────────┘   │
+│                                                             │
+│  ⚠ POWER LEVEL                                             │
+│  ┌─────────────────────────────────────────────────────┐   │
+│  │ 林逸 uses "天雷诀" but his current level is 金丹初期.   │   │
+│  │ This technique requires 金丹中期 per World Rules.     │   │
+│  │                                                      │   │
+│  │ [Check World Rules] [Update Character Level]         │   │
+│  └─────────────────────────────────────────────────────┘   │
+└─────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## See Also
+
+- [Features.md](Features.md) - Feature specifications
+- [../../../Design/Meta.md](../../../Design/Meta.md) - Design language system
