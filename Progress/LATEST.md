@@ -11,6 +11,24 @@
 
 ## Last 48h Summary
 
+### 2026-02-26: Character factionId — Follow-up Fixes
+
+- Fixed seed FK violation: seedRunner disables FK during exec (circular characters↔factions refs)
+- Fixed can't-clear-faction: `factionId?: FactionId | null` + CharacterDetail passes `null`
+- Fixed api.ts missing `factionId` in `CreateCharacterRequest`
+- RelationshipMap factionColorMap: leader fallback + `character.factionId` primary
+- CharacterDetail: added faction selector in character header
+- **10 files modified** | **1270 tests, 0 failures** | build clean
+
+### 2026-02-26: Character factionId — Bidirectional Faction Link
+
+- Added `factionId?: FactionId` to `Character` type + `CreateCharacterInput`
+- New migration 004: `faction_id TEXT REFERENCES factions(id)` on characters table
+- Updated `CharacterRepository` (row type, create, update, mapRow)
+- Updated demo seeds (zh + en) with faction assignments for all 6 characters
+- Fixed `factionColorMap` in RelationshipMap: now colours all faction members, not just leaders
+- **8 files modified** | **1270 tests, 0 failures** | build clean
+
 ### 2026-02-26: M7 Visualizations Code Review & Fixes
 
 - Code review of RelationshipMap, TimelineView, PacingView, index.tsx + Tabs.tsx
