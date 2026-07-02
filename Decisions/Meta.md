@@ -36,6 +36,9 @@ Proposed → Accepted → [Deprecated | Superseded]
 | [ADR-0004](ADR-0004-write-bible-entity-management.md) | Write Bible Entity Management | Accepted | 2026-02-12 |
 | [ADR-0005](ADR-0005-export-interface-simplification.md) | Export Interface Simplification | Accepted | 2026-02-13 |
 | [ADR-0006](ADR-0006-spec-driven-practices.md) | Spec-Driven Collaboration Practices | Accepted | 2026-02-18 |
+| [ADR-0007](ADR-0007-product-repositioning-okb-dual-host.md) | Product Repositioning — Opinionated KB + Dual-Host | Proposed | 2026-07-01 |
+| [ADR-0008](ADR-0008-design-language-paper-ink-cinnabar.md) | Design Language — Paper-Ink-Cinnabar | Proposed | 2026-07-01 |
+| [ADR-0009](ADR-0009-methodology-driven-context-engineering.md) | Methodology-Driven Context Engineering | Proposed | 2026-07-01 |
 
 ---
 
