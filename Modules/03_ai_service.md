@@ -17,6 +17,8 @@
 > **MVP 决策**: 只支持 Gemini 2.5 Pro，不做 Provider 抽象和 fallback。
 > 多 Provider 支持 (Claude, OpenAI) 推迟到 M4+。
 
+> **模型时效性说明 (2026-07-01)**: 本文档中的 "Gemini 2.5 Pro" / `gemini-2.5-pro` 是 M3 时期的历史决策记录。当前默认模型为 `gemini-3.5-flash`（gemini-2.0/2.5 系列已被 Google 陆续关停）。**模型 ID 应收敛于代码配置单点，文档不再逐处追更具体型号**。Context 组装策略的演进见 ADR-0009。
+
 ---
 
 ## 二、核心工作流

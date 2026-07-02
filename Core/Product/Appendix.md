@@ -16,7 +16,9 @@
 | Context management insufficient | Medium | High | Invest in smart context assembly |
 | Competition from AI writing tools | High | Medium | Focus on structure + open source |
 | Cross-platform issues | Medium | Medium | CI/CD for all platforms |
-| Gemini API changes | Low | High | Abstract AI layer |
+| Gemini API changes | High¹ | High | Abstract AI layer |
+
+¹ *Revised Low → High (2026-07-01): empirically falsified — `gemini-2.0-flash` was shut down by Google 2026-06-01 while hardcoded in two code paths, breaking API-key verification. The "Abstract AI layer" mitigation must actually be implemented (see ADR-0007/ADR-0009).*
 
 ---
 

@@ -24,8 +24,10 @@ Use **TypeScript** for the entire stack with **pnpm workspaces** for monorepo ma
 | TUI | Ink (React for CLI) |
 | Web | React 18 + Vite |
 | Server | Fastify |
-| Database | better-sqlite3 + sqlite-vss |
+| Database | better-sqlite3 + sqlite-vss <sup>†</sup> |
 | Testing | Vitest |
+
+> † *Drift note (2026-07-01)*: sqlite-vss was never integrated — search shipped as FTS5 + BM25 only. sqlite-vss is now unmaintained; when vector search lands (M8), use its successor **sqlite-vec** instead.
 
 ## Alternatives Considered
 
