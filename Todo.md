@@ -4,18 +4,30 @@
 
 ---
 
+## High Priority (2026-07 Redirection — see ADR-0007/0008/0009)
+
+- [ ] **UI triage list** (ADR-0008, ~1 day total, ships before redesign):
+  - [ ] Bundle Noto Sans SC subset + add CJK fonts to stack + `lang="zh-CN"`
+  - [ ] Global font-weight 300 → 400; body text 14px → 15/16px
+  - [ ] Remove italics from Chinese text (use emphasis mark or cinnabar color)
+  - [ ] API-key modal: persist "skip", demote to passive banner
+  - [ ] Merge duplicate token systems (`--text-*`/`--font-*`, `--space-sm`/`--space-2`)
+- [ ] **`@inxtone/mcp` Phase 1** (ADR-0007) — MCP server (CRUD + opinionated queries) + skill pack + `inxtone view`
+- [ ] **Design language rollout** (ADR-0008) — new tokens.css + one-page demo for sign-off, then staged migration
+- [ ] **Fastify 5 migration** — done, PR #23 awaiting review/merge
+
 ## High Priority (Deferred from M4)
 
 - [ ] **i18n system setup** — react-i18next + translation files; 36 preset strings are English-only
-- [ ] **Web package test infra** — jsdom + @testing-library/react for hook/component tests (useAutoSave etc.)
+- [x] **Web package test infra** — jsdom + @testing-library/react *(done in PR #24)*
 ## High Priority (M4 Phase 7 — Code Review Fixes)
 
 **Must Fix**
-- [ ] **useAutoSave race condition** — capture chapterId at debounce start, not setTimeout fire
+- [x] **useAutoSave race condition** — capture chapterId at debounce start *(fixed in 9fb4ee0; network-layer abort completed in PR #24)*
 
 **Should Fix**
-- [ ] **Auto-save collision** — `notifyManualSave()` clear pending timer + AbortController for in-flight requests
-- [ ] **useAutoSave unit tests** — no client-side test coverage
+- [x] **Auto-save collision** — clear pending timer + AbortController *(fixed in 9fb4ee0 + PR #24: signal now reaches fetch)*
+- [x] **useAutoSave unit tests** — 6 unit tests *(done in PR #24)*
 - [ ] **i18n: prompt presets** — 36 hardcoded English strings → `t('key')`
 - [x] **Outline CSS** — hardcoded `#ef4444` → `var(--color-danger)` *(fixed in fix/ui-consistency)*
 - [ ] **Brainstorm loading state** — no feedback during regeneration
